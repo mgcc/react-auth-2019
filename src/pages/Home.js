@@ -19,23 +19,8 @@ export default class Home extends Component {
       password: document.getElementById('s-password').value
     }
 
-    fetch(
-      'http://localhost:3001/signup',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(user)
-      })
-      .then(response => response.json())
-      .then(body => {
-        if (body.success) {
-          alert('successfully saved user')
-        } else {
-          alert('failed to save user')
-        }
-      })
+    // Send a POST request to /signup
+    // ---
   }
 
   login(e) {
@@ -46,37 +31,8 @@ export default class Home extends Component {
       password: document.getElementById('l-password').value
     }
 
-    fetch(
-      'http://localhost:3001/login',
-      {
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(credentials)
-      }
-    )
-    .then(response => response.json())
-    .then(body => {
-      if (body.success) {
-        // Store token as a cookie
-        const cookies = new Cookies()
-
-        cookies.set(
-          'authToken',
-          body.token,
-          {
-            path: 'localhost:3001/',
-            maxAge: 60 * 60 // 1 hour
-          })
-
-        // Store username as in localStorage
-        localStorage.setItem('username', body.username)
-      }
-      else {
-        alert('Failed to log in')
-      }
-    })
+    // Send POST request to /login
+    // ---
   }
 
   render() {
