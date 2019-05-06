@@ -8,7 +8,6 @@ export default class Home extends Component {
 
     this.signup = this.signup.bind(this)
     this.login = this.login.bind(this)
-
   }
 
   signup(e) {
@@ -29,10 +28,8 @@ export default class Home extends Component {
         },
         body: JSON.stringify(user)
       })
-      .then(response => response.json() )
+      .then(response => response.json())
       .then(body => {
-        console.log(body)
-
         if (body.success) {
           alert('successfully saved user')
         } else {
@@ -49,8 +46,6 @@ export default class Home extends Component {
       password: document.getElementById('l-password').value
     }
 
-    console.log(credentials)
-
     fetch(
       'http://localhost:3001/login',
       {
@@ -64,8 +59,7 @@ export default class Home extends Component {
     .then(response => response.json())
     .then(body => {
       if (body.success) {
-        console.log('Success. Setting cookie ...')
-        // store token
+        // Store token as a cookie
         const cookies = new Cookies()
 
         cookies.set(
@@ -73,12 +67,11 @@ export default class Home extends Component {
           body.token,
           {
             path: 'localhost:3001/',
-            maxAge: 60 * 10 // 10 mins
+            maxAge: 60 * 60 // 1 hour
           })
 
-
-        // redirect
-        console.log('Redirecting ...')
+        // Store username as in localStorage
+        localStorage.setItem('username', body.username)
       }
       else {
         alert('Failed to log in')
@@ -93,7 +86,7 @@ export default class Home extends Component {
         <form>
           <input type="text" id="s-name" placeholder="Name" /> &nbsp;
           <input type="text" id="s-email" placeholder="Email" /> &nbsp;
-          <input type="password" id="s-password" placeholder="password" />
+          <input type="password" id="s-password" placeholder="password" />&nbsp;
 
           <button id="signup" onClick={this.signup}>Sign Up</button>
         </form>
@@ -101,7 +94,7 @@ export default class Home extends Component {
         <h2>Log In</h2>
         <form>
           <input type="text" id="l-email" placeholder="Email" /> &nbsp;
-          <input type="password" id="l-password" placeholder="Password" />
+          <input type="password" id="l-password" placeholder="Password" />&nbsp;
           <button id="login" onClick={this.login}>Log In</button>
         </form>
       </div>

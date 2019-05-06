@@ -10,7 +10,8 @@ export default class Dashboard extends Component {
 
     this.state = {
       checkedIfLoggedIn: false,
-      loggedIn: false
+      loggedIn: false,
+      username: localStorage.getItem('username')
     }
 
     fetch(
@@ -50,7 +51,7 @@ export default class Dashboard extends Component {
       if (this.state.loggedIn) {
         return (
           <div>
-            Welcome to the Dashboard!
+            Welcome to the Dashboard, {this.state.username}!
             <br />
             <button onClick={this.logout} id='logout'>Log Out</button>
           </div>
